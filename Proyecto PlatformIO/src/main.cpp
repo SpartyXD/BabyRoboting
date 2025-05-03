@@ -17,13 +17,14 @@ Led red, blue;
 unsigned long time_now=0, last_face_change=0, last_led_change=0;
 int FACE_IDX = 0;
 
-#define RANDOM_FACE_DELAY 3000
-#define RANDOM_LED_DELAY 3000
+#define RANDOM_FACE_DELAY 10000
+#define RANDOM_LED_DELAY 6300
 #define TOGGLE_CHANCE 0.5
 
 
 void change_face();
 void change_led();
+void receiveData();
 
 //===================================
 
@@ -58,6 +59,8 @@ void setup() {
 
 
 void loop(){
+  receiveData();
+
   //Check if time has passed
   time_now = get_time();
 
@@ -106,4 +109,14 @@ void change_led(){
     red.toggle();
     blue.toggle();
   }
+}
+
+
+void receiveData(){
+  if(!Serial.available())
+    return;
+  
+  String message = Serial.readStringUntil('\n');
+  screen.printCentered(message);
+  delay(3000);
 }
