@@ -247,6 +247,7 @@ struct Screen{
 
 struct Led{
     int pin = 0;
+    int brightness = 255;
     bool turned_on = false;
 
     Led(){}
@@ -257,7 +258,10 @@ struct Led{
     }
 
     void _update(){
-        digitalWrite(pin, turned_on);
+        if(turned_on)
+            analogWrite(pin, brightness);
+        else
+            analogWrite(pin, 0);
     }
 
     void toggle(){
@@ -270,6 +274,10 @@ struct Led{
         _update();
     }
 
+    void change_brightness(int brightness){
+        this->brightness = brightness;
+        _update();
+    }
 
 };
 
