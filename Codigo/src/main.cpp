@@ -2,7 +2,7 @@
 //=====================================
 
 //PINS
-#define BUZZERPIN 10
+#define BUZZERPIN 9
 #define REDLEDPIN 6
 #define BLUELEDPIN 5
 
@@ -90,8 +90,8 @@ void change_face(){
 
 void change_led(){
   //Change both leds to a random state
-  int red_brightness = random(60, 255);
-  int blue_brightness = random(60, 255);
+  int red_brightness = random(60, 200);
+  int blue_brightness = random(60, 200);
 
   red.change_brightness(red_brightness);
   blue.change_brightness(blue_brightness);
