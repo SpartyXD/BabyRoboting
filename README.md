@@ -21,7 +21,7 @@ Se debe imprmir 1 de cada pieza contenida en la carpeta **Piezas 3D**, luego de 
 | ------------- |:-------------:| 
 | LED roja      | resistencia - D6 | 
 | LED azul     | resistencia - D5  | 
-| Buzzer     | D10  | 
+| Buzzer     | D9  | 
 | Pantalla (SDA)     | A4 | 
 | Pantalla (SCL)     | A5 | 
 | Pantalla (VCC)     | 5V | 
