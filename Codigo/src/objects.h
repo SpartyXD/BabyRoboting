@@ -278,7 +278,7 @@ public:
         }
 
         clear();
-        printCentered("Roboting UC");
+        printCentered("@roboting_uc");
         update();
     }
 
@@ -323,8 +323,8 @@ public:
 
 struct Led{
     int pin = 0;
-    int brightness = 245;
-    bool turned_on = false;
+    int brightness = 255;
+    bool turned_on = true;
 
     Led(){}
 

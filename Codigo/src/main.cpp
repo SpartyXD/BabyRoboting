@@ -18,27 +18,28 @@ unsigned long time_now=0, last_face_change=0, last_led_change=0;
 int FACE_IDX = 0;
 
 #define RANDOM_FACE_DELAY 10000
-#define RANDOM_LED_DELAY 6300
-#define TOGGLE_CHANCE 0.5
+#define RANDOM_LED_DELAY 7000
+#define TOGGLE_CHANCE 0.3
 
-
+void startup_leds(void *params);
 void change_face();
 void change_led();
 void receiveData();
 
 //===================================
 
-void setup() {
+void setup(){
     Serial.begin(115200);
     speaker.init(BUZZERPIN);
     screen.init();
     red.init(REDLEDPIN);
     blue.init(BLUELEDPIN);
 
+    xTaskCreatePinnedToCore(startup_leds, "Start", 2048, NULL, 1, NULL, 0);
 
     screen.loading_screen();
     speaker.welcomeBeep();
-    delay(1000);
+    vTaskDelay(1500);
     screen.showFace(IDLE);
 }
 
@@ -101,7 +102,38 @@ void receiveData(){
   if(!Serial.available())
     return;
   
+  screen.clear();
   String message = Serial.readStringUntil('\n');
-  screen.printCentered(message);
-  delay(3000);
+  screen.printCenteredWrapped(message);
+  screen.update();
+  speaker.successBeep();
+  vTaskDelay(3000);
+}
+
+
+void startup_leds(void *params){
+  blue.change_brightness(0);
+  red.change_brightness(0);
+
+  vTaskDelay(250);
+
+  blue.change_brightness(0);
+  red.change_brightness(255);
+
+  vTaskDelay(250);
+
+  blue.change_brightness(255);
+  red.change_brightness(255);
+
+  vTaskDelay(250);
+
+  blue.change_brightness(0);
+  red.change_brightness(0);
+
+  vTaskDelay(250);
+
+  blue.change_brightness(255);
+  red.change_brightness(255);
+
+  vTaskDelete(NULL);
 }

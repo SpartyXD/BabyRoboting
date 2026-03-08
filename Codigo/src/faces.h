@@ -414,11 +414,6 @@ const unsigned char* Faces[] = {
 const int N_FACES = sizeof(Faces)/sizeof(Faces[0]);
 
 //Faces idx
-#define IDLE 0
-#define HAPPY 1
-#define MONEY 2
-#define NICE 3
-#define CODE 4
-#define EVIL 5
+enum Faces_enum{IDLE, HAPPY, MONEY, NICE, CODE, EVIL};
 
 #endif
