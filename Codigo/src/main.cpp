@@ -2,13 +2,13 @@
 //=====================================
 
 //PINS
-#define BUZZERPIN 9
-#define REDLEDPIN 6
+#define BUZZERPIN 7
+#define REDLEDPIN 4
 #define BLUELEDPIN 5
 
 //===================================
 //OBJECTS
-Screen screen;
+OledScreen screen;
 PassiveBuzzer speaker;
 Led red, blue;
 
@@ -31,28 +31,13 @@ void receiveData();
 void setup() {
     Serial.begin(115200);
     speaker.init(BUZZERPIN);
-    screen.init(speaker);
+    screen.init();
     red.init(REDLEDPIN);
     blue.init(BLUELEDPIN);
 
-    //Loading screen
-    for(int i=0; i<=100; i+=20){
-      screen.clear();
-      blue.adjust(i > 40);
-      red.adjust(i == 100);
-      screen.header("Cargando...");
-      display.setCursor(screen.centerX-(String(i).length()*5)+15, screen.centerY);
-      screen.print(String(i), 2);
-      screen.print("%", 2);
-      screen.show();
 
-      delay(800);
-    }
-
-    screen.clear();
-    screen.printCentered("Roboting UC");
-    screen.show();
-    speaker.startupBeep();
+    screen.loading_screen();
+    speaker.welcomeBeep();
     delay(1000);
     screen.showFace(IDLE);
 }
